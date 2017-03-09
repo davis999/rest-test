@@ -19,16 +19,4 @@ class CleanupMap {
     public Map getAllObjects() {
         return this.objects
     }
-
-//    public static void main(String[] args) {
-//        CleanupMap cleanupMap = new CleanupMap()
-//        cleanupMap.addObject("111111", 1)
-//        cleanupMap.addObject("1111112", 3)
-//        println(cleanupMap.getAllObjects())
-//
-//        cleanupMap.getAllObjects().each { key, value ->
-//            println(key)
-//            println(value)
-//        }
-//    }
 }

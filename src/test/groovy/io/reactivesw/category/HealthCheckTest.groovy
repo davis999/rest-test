@@ -1,6 +1,5 @@
 package io.reactivesw.category
 
-import groovyx.net.http.RESTClient
 import io.reactivesw.category.config.CategoryConfig
 import io.reactivesw.util.RestClientFactory
 import spock.lang.Specification
