@@ -15,4 +15,12 @@ class DataFactory {
     public static def getCategoryWithAllParams() {
         return slurper.parse(new FileReader('src/test/groovy/io/reactivesw/category/data/CategoryWithAllParams.json'))
     }
+
+    public static def getSetNameAction() {
+        return slurper.parse(new FileReader('src/test/groovy/io/reactivesw/category/data/UpdateName.json'))
+    }
+
+    public static def getSetSlugAction() {
+        return slurper.parse(new FileReader('src/test/groovy/io/reactivesw/category/data/UpdateSlug.json'))
+    }
 }

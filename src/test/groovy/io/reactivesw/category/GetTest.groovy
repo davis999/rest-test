@@ -5,19 +5,25 @@ import io.reactivesw.category.data.DataFactory
 import io.reactivesw.util.CleanupMap
 import io.reactivesw.util.CleanupUtil
 import io.reactivesw.util.RestClientFactory
+import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * Created by Davis on 17/3/10.
  */
 class GetTest extends Specification {
+    @Shared
     def id
+    @Shared
     def version
+    @Shared
     def category
+    @Shared
     def primerEndpoint
+    @Shared
     CleanupMap cleanupMap = new CleanupMap()
 
-    def setup() {
+    def setupSpec() {
         category = DataFactory.getCategory()
         primerEndpoint = RestClientFactory.getJsonClient(CategoryConfig.rootURL)
         def response = primerEndpoint.post(body: category)
@@ -26,7 +32,7 @@ class GetTest extends Specification {
     }
 
     def "test 1 : get category by id"() {
-        when: "call api to get category with id : $id"
+        when: "call api to get category with id"
         def response = primerEndpoint.get(path: id)
 
         then: "success, return 200 and new category equal to given category"
@@ -48,14 +54,14 @@ class GetTest extends Specification {
         given: "prepare a not exist id"
         def wrongId = "this is a wrong id"
 
-        when: "call api to get category with id : $wrongId"
+        when: "call api to get category with id"
         def response = primerEndpoint.get(path: wrongId)
 
         then: "fail and return 404"
         response == 404
     }
 
-    def cleanup() {
+    def cleanupSpec() {
         CleanupUtil.cleanup(CategoryConfig.rootURL, cleanupMap)
     }
 }
