@@ -5,13 +5,16 @@ import io.reactivesw.category.data.DataFactory
 import io.reactivesw.util.CleanupMap
 import io.reactivesw.util.CleanupUtil
 import io.reactivesw.util.RestClientFactory
+import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * Created by Davis on 17/3/9.
  */
 class CreateTest extends Specification {
+    @Shared
     CleanupMap cleanupMap = new CleanupMap()
+
     def primerEndpoint = RestClientFactory.getJsonClient(CategoryConfig.rootURL)
 
     def "test 1 : create category with name and slug, should return 200 and new category"() {
@@ -53,7 +56,7 @@ class CreateTest extends Specification {
         cleanupMap.addObject(response.data.id, response.data.version)
     }
 
-    def cleanup() {
+    def cleanupSpec() {
         def url = "http://35.184.19.183/categories/"
         CleanupUtil.cleanup(url, cleanupMap)
     }

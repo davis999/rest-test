@@ -1,10 +1,9 @@
 package io.reactivesw.category
 
-import groovyx.net.http.ContentType
-import groovyx.net.http.RESTClient
 import io.reactivesw.category.config.CategoryConfig
 import io.reactivesw.category.data.DataFactory
 import io.reactivesw.util.RestClientFactory
+import spock.lang.Shared
 import spock.lang.Specification
 
 /**
@@ -12,11 +11,14 @@ import spock.lang.Specification
  */
 class DeleteTest extends Specification {
 
-    def id;
-    def version;
+    @Shared
+    def id
+    @Shared
+    def version
+    @Shared
     def primerEndpoint
 
-    def setup() {
+    def setupSpec() {
         def category = DataFactory.getCategory()
         primerEndpoint = RestClientFactory.getJsonClient(CategoryConfig.rootURL)
         def response = primerEndpoint.post(body: category)
@@ -26,14 +28,26 @@ class DeleteTest extends Specification {
 
     def "test 1 : delete category with id and version, should return 200 and success"() {
         given: "prepare data"
-        def deleteURL = CategoryConfig.rootURL + id
-        primerEndpoint = RestClientFactory.getClient(deleteURL)
+        primerEndpoint = RestClientFactory.getClient(CategoryConfig.rootURL)
         def version = ['version': version]
 
         when: "call api"
-        def response = primerEndpoint.delete(query: version)
+        def response = primerEndpoint.delete(path: id, query: version)
 
         then: "response status should be 200"
         response.status == 200
+    }
+
+    def "test 2 : delete category with not exist id, would fail and return 404"() {
+        given: "prepare data"
+        primerEndpoint = RestClientFactory.getClient(CategoryConfig.rootURL)
+        def wrongId = "this is a wrong id"
+        def version = ['version': version]
+
+        when: "call api to delete category which was deleted at test 1"
+        def response = primerEndpoint.delete(path: wrongId, query: version)
+
+        then: "response status should be 404"
+        response == 404
     }
 }
