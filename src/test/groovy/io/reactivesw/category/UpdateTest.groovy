@@ -75,6 +75,21 @@ class UpdateTest extends Specification {
         response.data.description == setDescription.actions[0].description
     }
 
+    def "test 4 : multi update action"() {
+        given: "prepare data"
+        def multiAction = DataFactory.getMultiUpdateAction()
+        multiAction['version'] = cleanupMap.allObjects[id]
+
+        when: "call api to update category description"
+        def response = primerEndpoint.put([path: id, body: multiAction])
+
+        then: "return 200 and category with new params"
+        cleanupMap.addObject(response.data.id, response.data.version)
+        response.status == 200
+        response.data.name == multiAction.actions[0].name
+        response.data.slug == multiAction.actions[1].slug
+    }
+
     def cleanupSpec() {
         CleanupUtil.cleanup(CategoryConfig.rootURL, cleanupMap)
     }

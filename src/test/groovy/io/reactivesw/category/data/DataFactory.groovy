@@ -27,4 +27,8 @@ class DataFactory {
     public static def getSetDescriptionAction() {
         return slurper.parse(new FileReader('src/test/groovy/io/reactivesw/category/data/UpdateDescription.json'))
     }
+
+    public static def getMultiUpdateAction() {
+        return slurper.parse(new FileReader('src/test/groovy/io/reactivesw/category/data/MultiUpdate.json'))
+    }
 }
