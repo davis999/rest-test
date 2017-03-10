@@ -38,10 +38,9 @@ class UpdateTest extends Specification {
         setName['version'] = cleanupMap.allObjects[id]
 
         when: "call api to update category name"
-        primerEndpoint
         def response = primerEndpoint.put([path: id, body: setName])
 
-        then: "success, return 200 and category with new name"
+        then: "return 200 and category with new name"
         cleanupMap.addObject(response.data.id, response.data.version)
         response.status == 200
         response.data.name == setName.actions[0].name
@@ -54,14 +53,26 @@ class UpdateTest extends Specification {
         setSlug['version'] = cleanupMap.allObjects[id]
 
         when: "call api to update category slug"
-        primerEndpoint
         def response = primerEndpoint.put([path: id, body: setSlug])
 
-        then: "success, return 200 and category with new slug"
+        then: "return 200 and category with new slug"
         cleanupMap.addObject(response.data.id, response.data.version)
         response.status == 200
         response.data.slug == setSlug.actions[0].slug
+    }
 
+    def "test 3 : update category description"() {
+        given: "prepare data"
+        def setDescription = DataFactory.getSetDescriptionAction()
+        setDescription['version'] = cleanupMap.allObjects[id]
+
+        when: "call api to update category description"
+        def response = primerEndpoint.put([path: id, body: setDescription])
+
+        then: "return 200 and category with new description"
+        cleanupMap.addObject(response.data.id, response.data.version)
+        response.status == 200
+        response.data.description == setDescription.actions[0].description
     }
 
     def cleanupSpec() {

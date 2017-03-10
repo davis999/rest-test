@@ -23,4 +23,8 @@ class DataFactory {
     public static def getSetSlugAction() {
         return slurper.parse(new FileReader('src/test/groovy/io/reactivesw/category/data/UpdateSlug.json'))
     }
+
+    public static def getSetDescriptionAction() {
+        return slurper.parse(new FileReader('src/test/groovy/io/reactivesw/category/data/UpdateDescription.json'))
+    }
 }
