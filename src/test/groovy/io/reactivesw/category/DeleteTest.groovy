@@ -1,7 +1,7 @@
 package io.reactivesw.category
 
 import io.reactivesw.category.config.CategoryConfig
-import io.reactivesw.category.data.DataFactory
+import io.reactivesw.util.CategoryDataFactory
 import io.reactivesw.util.RestClientFactory
 import spock.lang.Shared
 import spock.lang.Specification
@@ -19,7 +19,7 @@ class DeleteTest extends Specification {
     def primerEndpoint
 
     def setupSpec() {
-        def category = DataFactory.getCategory()
+        def category = CategoryDataFactory.getCategory()
         primerEndpoint = RestClientFactory.getJsonClient(CategoryConfig.rootURL)
         def response = primerEndpoint.post(body: category)
         id = response.data.id

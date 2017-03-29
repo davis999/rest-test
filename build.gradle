@@ -6,7 +6,7 @@ repositories {
 
 dependencies {
     // HTTP Builder
-    testCompile("org.codehaus.groovy.modules.http-builder:http-builder:0.7+")
+    testCompile("org.codehaus.groovy.modules.http-builder:http-builder:0.7")
 
     //groovy for spock
     testCompile('org.codehaus.groovy:groovy-all:2.4.1')

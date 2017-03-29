@@ -1,7 +1,7 @@
 package io.reactivesw.category
 
 import io.reactivesw.category.config.CategoryConfig
-import io.reactivesw.category.data.DataFactory
+import io.reactivesw.util.CategoryDataFactory
 import io.reactivesw.util.CleanupMap
 import io.reactivesw.util.CleanupUtil
 import io.reactivesw.util.RestClientFactory
@@ -24,7 +24,7 @@ class GetTest extends Specification {
     CleanupMap cleanupMap = new CleanupMap()
 
     def setupSpec() {
-        category = DataFactory.getCategory()
+        category = CategoryDataFactory.getCategory()
         primerEndpoint = RestClientFactory.getJsonClient(CategoryConfig.rootURL)
         def response = primerEndpoint.post(body: category)
         id = response.data.id
