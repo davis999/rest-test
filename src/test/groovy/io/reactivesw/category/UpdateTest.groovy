@@ -1,7 +1,7 @@
 package io.reactivesw.category
 
 import io.reactivesw.category.config.CategoryConfig
-import io.reactivesw.category.data.DataFactory
+import io.reactivesw.util.CategoryDataFactory
 import io.reactivesw.util.CleanupMap
 import io.reactivesw.util.CleanupUtil
 import io.reactivesw.util.RestClientFactory
@@ -24,7 +24,7 @@ class UpdateTest extends Specification {
     CleanupMap cleanupMap = new CleanupMap()
 
     def setupSpec() {
-        category = DataFactory.getCategory()
+        category = CategoryDataFactory.getCategory()
         primerEndpoint = RestClientFactory.getJsonClient(CategoryConfig.rootURL)
         def response = primerEndpoint.post(body: category)
         id = response.data.id
@@ -34,7 +34,7 @@ class UpdateTest extends Specification {
 
     def "test 1 : update category name"() {
         given: "prepare data"
-        def setName = DataFactory.getSetNameAction()
+        def setName = CategoryDataFactory.getSetNameAction()
         setName['version'] = cleanupMap.allObjects[id]
 
         when: "call api to update category name"
@@ -49,7 +49,7 @@ class UpdateTest extends Specification {
 
     def "test 2 : update category slug"() {
         given: "prepare data"
-        def setSlug = DataFactory.getSetSlugAction()
+        def setSlug = CategoryDataFactory.getSetSlugAction()
         setSlug['version'] = cleanupMap.allObjects[id]
 
         when: "call api to update category slug"
@@ -63,7 +63,7 @@ class UpdateTest extends Specification {
 
     def "test 3 : update category description"() {
         given: "prepare data"
-        def setDescription = DataFactory.getSetDescriptionAction()
+        def setDescription = CategoryDataFactory.getSetDescriptionAction()
         setDescription['version'] = cleanupMap.allObjects[id]
 
         when: "call api to update category description"
@@ -77,7 +77,7 @@ class UpdateTest extends Specification {
 
     def "test 4 : multi update action"() {
         given: "prepare data"
-        def multiAction = DataFactory.getMultiUpdateAction()
+        def multiAction = CategoryDataFactory.getMultiUpdateAction()
         multiAction['version'] = cleanupMap.allObjects[id]
 
         when: "call api to update category description"

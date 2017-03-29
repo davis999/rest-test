@@ -1,7 +1,7 @@
 package io.reactivesw.category
 
 import io.reactivesw.category.config.CategoryConfig
-import io.reactivesw.category.data.DataFactory
+import io.reactivesw.util.CategoryDataFactory
 import io.reactivesw.util.CleanupMap
 import io.reactivesw.util.CleanupUtil
 import io.reactivesw.util.RestClientFactory
@@ -19,24 +19,21 @@ class CreateTest extends Specification {
 
     def "test 1 : create category with name and slug, should return 200 and new category"() {
         given: "prepare category data"
-
-        def category = DataFactory.getCategory()
+        def category = CategoryDataFactory.getCategory()
 
         when: "call category api to create category"
         def response = primerEndpoint.post(body: category)
 
         then: "response status should be 200, name and slug should be equal to given category"
-
         response.status == 200
         response.data.name == category.name
         response.data.slug == category.slug
-
         cleanupMap.addObject(response.data.id, response.data.version)
     }
 
     def "test 2 : create category with all parmas, should return 200 and new category"() {
         given: "prepare category data"
-        def category = DataFactory.getCategoryWithAllParams()
+        def category = CategoryDataFactory.getCategoryWithAllParams()
 
         when: "call category api to create category"
         def response = primerEndpoint.post(body: category)
@@ -57,7 +54,7 @@ class CreateTest extends Specification {
     }
 
     def cleanupSpec() {
-        def url = "http://35.184.19.183/categories/"
+        def url = CategoryConfig.rootURL
         CleanupUtil.cleanup(url, cleanupMap)
     }
 }
